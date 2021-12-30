@@ -14,3 +14,6 @@ def Distance(obj1, obj2):
         return Q.Distance(R)
     elif isinstance(obj1, CmGeomBase.Point3D) and isinstance(obj2, CmRay.Ray):
         P, Q, V = obj2.P, obj1, obj2.V
+
+
+print("")
