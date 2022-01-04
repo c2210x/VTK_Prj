@@ -10,9 +10,9 @@ class Circle:
 
     def compare(circle1, circle2):
         if circle1.area() != circle2.area():
-            return 'Not equal'
+            return "Not equal"
         else:
-            return 'Equal'
+            return "Equal"
 
 
 if __name__ == '__main__':
