@@ -3,7 +3,6 @@ import math
 epsilon = 1e-7
 epsilonSquare = epsilon * epsilon
 
-
 class Point3D:
     def __init__(self, x = 0.0, y = 0.0, z = 0.0, w = 1.0) -> None:
         self.x, self.y, self.z, self.w = x, y, z, w

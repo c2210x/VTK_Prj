@@ -35,7 +35,7 @@ class STLModel:
                 f.close()
     def ExtractFromVtkStlReader(self, vtkStlReader):
         vtkStlReader.Update()
-        polyData = vtkStlReader.GetOutPut()
+        polyData = vtkStlReader.GetOutput()
         cells = polyData.GetPolys()
         cells.InitTraversal()
         while True:
@@ -46,9 +46,9 @@ class STLModel:
             pnt3ds = []
             for i in range(idList.GetNumberOfIds()):
                 id = idList.GetId(i)
-                x, y, z = polyData.Point(id)
+                x, y, z = polyData.GetPoint(id)
                 pnt3ds.append(Point3D(x, y, z))
-                triangle = Triangle(pnt3ds[0], pnt3ds[1], pnt3ds[2])
+                triangle = Triangle(pnt3ds[i], pnt3ds[i], pnt3ds[i])
                 triangle.CalcNormal()
                 self.triangles.append(triangle)
     def GetBounds(self):

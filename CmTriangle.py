@@ -10,3 +10,5 @@ class Triangle:
         pass
     def ZMaxPnt(self):
         pass
+    def CalcNormal(self):
+        pass

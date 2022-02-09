@@ -128,6 +128,7 @@ def PointOnRay(p : CmGeomBase.Point3D, ray : CmRay.Ray):
         return True
     else:
         return False
+
 def PointInPolygon(p : CmGeomBase.Point3D, polygon : CmPolyline.Polyline):
     passCount = 0
     ray = CmRay.Ray(p, CmGeomBase.Vector3D(1, 0, 0))
@@ -156,3 +157,33 @@ def PointInPolygon(p : CmGeomBase.Point3D, polygon : CmPolyline.Polyline):
     if passCount % 2 == 1:
         return 1
     return 0
+
+def IntersectTrianglePlane(triangle, plane):
+    AB = CmSegment.Segment(triangle.A, triangle.B)
+    AC = CmSegment.Segment(triangle.A, triangle.C)
+    BC = CmSegment.Segment(triangle.B, triangle.C)
+    c1 = IntersectSegmentPlane(AB, plane)
+    c2 = IntersectSegmentPlane(AC, plane)
+    c3 = IntersectSegmentPlane(BC, plane)
+    if c1 is None:
+        if c2 is not None and c3 is not None:
+            if c2.Distance(c3) != 0.0:
+                return CmSegment.Segment(c2, c3)
+    elif c2 is None:
+        if c1 is not None and c3 is not None:
+            if c1.Distance(c3) != 0.0:
+                return CmSegment.Segment(c1, c3)
+    elif c3 is None:
+        if c1 is not None and c2 is not None:
+            if c1.distance(c2) != 0.0:
+                return CmSegment.Segment(c1, c2)
+    elif c1 is not None and c2 is not None and c3 is not None:
+        if c1.IsDentical(c2):
+            return CmSegment.Segment(c1, c3)
+        else:
+            return CmSegment.Segment(c1, c2)
+
+def IntersectTrianglePlaneZ(triangle, z):
+    if triangle.zMinPnt().z > z or triangle.zMaxPnt().z < z:
+        return None
+    return IntersectTrianglePlane(triangle, CmPlane.Plane.PlaneZ(z))
