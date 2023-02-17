@@ -187,3 +187,18 @@ def IntersectTrianglePlaneZ(triangle, z):
     if triangle.zMinPnt().z > z or triangle.zMaxPnt().z < z:
         return None
     return IntersectTrianglePlane(triangle, CmPlane.Plane.PlaneZ(z))
+
+def AdjustPolygonDirs(polygons):
+    for i in range(len(polygons)):
+        pt = polygons[i].startPoint()
+        insideCount = 0
+        for j in range(len(polygons)):
+            if j == i:
+                continue
+            restPoly = polygons[j]
+            if 1 == PointInPolygon(pt, restPoly):
+                evenCount += 1
+            if evenCount % 2 == 0:
+                polygons[i].makeCCW()
+            else:
+                polygons[i].makeCW()

@@ -17,6 +17,21 @@ def IntersectSTL_brutal(stlModel : STLModel, layerThick):
         z += layerThick
     return layers
 
+def LinkSegs_brutal(segs):
+    segs = list(segs)
+    contours = []
+    while len(segs) > 0:
+        contour = CmPolyline
+        contours.append(contour)
+        while len(segs) > 0:
+            for seg in segs:
+                if contour.appendSegment(seg):
+                    segs.remove(seg)
+                    break
+                if contour.isclosed():
+                    break
+    return contours
+
 if __name__ == '__main__':
     vtkAdapter = VTKAdapter()
     vtkStlReader = vtk.vtkSTLReader()
